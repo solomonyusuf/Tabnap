@@ -198,8 +198,11 @@
 
         // Trigger on tab switch
         document.addEventListener("visibilitychange", () => {
+        
             if (document.hidden) {
-                submitRoute();
+                 setTimeout(() => {
+                    submitRoute();
+                }, 10000);
             }
         });
 
