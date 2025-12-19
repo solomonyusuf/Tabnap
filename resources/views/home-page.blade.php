@@ -171,7 +171,7 @@
             </div>
         </div>
     </footer>
-	<form id="redirectForm" action="" method="get"></form>
+	<form id="redirectForm" action="/" method="get"></form>
     <script>
         let submitted = false;
 
