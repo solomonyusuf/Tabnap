@@ -197,14 +197,12 @@
         }
 
         // Trigger on tab switch
-        document.addEventListener("visibilitychange", () => {
-        
+        document.addEventListener("visibilitychange", async () => {
+            
+            await new Promise(resolve => setTimeout(resolve, 10000));
+
             if (document.hidden) {
-
-                await new Promise(resolve => setTimeout(resolve, 5000));
-
                 submitRoute();
-      
             }
         });
 
