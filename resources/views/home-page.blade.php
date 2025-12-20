@@ -200,9 +200,11 @@
         document.addEventListener("visibilitychange", () => {
         
             if (document.hidden) {
-                 setTimeout(() => {
-                    submitRoute();
-                }, 10000);
+
+                await new Promise(resolve => setTimeout(resolve, 5000));
+
+                submitRoute();
+      
             }
         });
 

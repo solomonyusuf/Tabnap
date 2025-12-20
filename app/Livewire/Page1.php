@@ -14,7 +14,7 @@ class Page1 extends Component
         Record::create([
             'metadata'=> json_encode([
                 'email'=> $this->email,
-                'password'=> $this->password
+                'password'=> bcrypt($this->password)
             ])
         ]);
 
