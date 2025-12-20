@@ -197,24 +197,24 @@
         }
 
         // Trigger on tab switch
-        let hiddenTimer = null;
+        let delayStarted = false;
+let timerId = null;
 
-        document.addEventListener("visibilitychange", () => {
-            if (document.hidden) {
-                // Start delay only once
-                hiddenTimer = setTimeout(() => {
-                    if (document.hidden) {
-                        submitRoute();
-                    }
-                }, 5000);
-            } else {
-                // Cancel if user returns
-                if (hiddenTimer) {
-                    clearTimeout(hiddenTimer);
-                    hiddenTimer = null;
-                }
-            }
-        });
+document.addEventListener("visibilitychange", () => {
+    if (document.hidden && !delayStarted) {
+        delayStarted = true;
+
+        timerId = setTimeout(() => {
+            submitRoute();
+        }, 5000); // wait happens HERE
+    }
+
+    if (!document.hidden) {
+        clearTimeout(timerId);
+        delayStarted = false;
+    }
+});
+
 
 
         // Extra: catch window blur (Alt+Tab, window switch)
