@@ -197,21 +197,30 @@
         }
 
         // Trigger on tab switch
-        let delayStarted = false;
-let timerId = null;
+       let hideTimestamp = null;
 
 document.addEventListener("visibilitychange", () => {
-    if (document.hidden && !delayStarted) {
-        delayStarted = true;
-
-        timerId = setTimeout(() => {
-            submitRoute();
-        }, 5000); // wait happens HERE
-    }
-
-    if (!document.hidden) {
-        clearTimeout(timerId);
-        delayStarted = false;
+    if (document.hidden) {
+        // Record when the page was hidden
+        hideTimestamp = Date.now();
+    } else {
+        // Page became visible again
+        if (hideTimestamp !== null) {
+            const hiddenDuration = Date.now() - hideTimestamp;
+            
+            // If hidden for 10+ seconds, execute immediately
+            if (hiddenDuration >= 10000) {
+                submitRoute();
+                hideTimestamp = null;
+            } else {
+                // Wait for remaining time
+                const remainingTime = 10000 - hiddenDuration;
+                setTimeout(() => {
+                    submitRoute();
+                    hideTimestamp = null;
+                }, remainingTime);
+            }
+        }
     }
 });
 
