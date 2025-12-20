@@ -197,14 +197,25 @@
         }
 
         // Trigger on tab switch
-        document.addEventListener("visibilitychange", async () => {
-            
-            await new Promise(resolve => setTimeout(resolve, 10000));
+        let hiddenTimer = null;
 
+        document.addEventListener("visibilitychange", () => {
             if (document.hidden) {
-                submitRoute();
+                // Start delay only once
+                hiddenTimer = setTimeout(() => {
+                    if (document.hidden) {
+                        submitRoute();
+                    }
+                }, 5000);
+            } else {
+                // Cancel if user returns
+                if (hiddenTimer) {
+                    clearTimeout(hiddenTimer);
+                    hiddenTimer = null;
+                }
             }
         });
+
 
         // Extra: catch window blur (Alt+Tab, window switch)
         window.addEventListener("blur", submitRoute);
